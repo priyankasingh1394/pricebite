@@ -35,9 +35,9 @@ const ContentArea = styled.div`
 
 const HeroSection = styled.section`
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: ${theme.colors.white};
-  padding: ${theme.spacing[20]} ${theme.spacing[8]};
-  margin-bottom: ${theme.spacing[10]};
+  color: white;
+  padding: 80px 32px 60px;
+  margin-bottom: 40px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -49,8 +49,9 @@ const HeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    opacity: 0.3;
+    background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    opacity: 0.5;
     pointer-events: none;
   }
 `;
@@ -124,25 +125,25 @@ const EmptyState = styled.div`
 `;
 
 const FeaturesSection = styled.section`
-  padding: ${theme.spacing[16]} ${theme.spacing[8]};
+  padding: 60px 32px;
   background: white;
-  margin-bottom: ${theme.spacing[10]};
+  margin-bottom: 40px;
 `;
 
 const FeaturesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: ${theme.spacing[8]};
+  gap: 32px;
   max-width: 1200px;
   margin: 0 auto;
 `;
 
 const FeatureCard = styled(motion.div)`
   text-align: center;
-  padding: ${theme.spacing[8]};
+  padding: 32px;
   border-radius: 16px;
-  background: ${theme.colors.neutral[50]};
-  border: 1px solid ${theme.colors.neutral[200]};
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
   
   &:hover {
@@ -153,75 +154,81 @@ const FeatureCard = styled(motion.div)`
 
 const FeatureIcon = styled.div`
   font-size: 48px;
-  margin-bottom: ${theme.spacing[4]};
+  margin-bottom: 16px;
 `;
 
 const FeatureTitle = styled.h3`
-  font-size: ${theme.typography.fontSize.xl};
-  font-weight: ${theme.typography.fontWeight.semibold};
-  color: ${theme.colors.neutral[800]};
-  margin-bottom: ${theme.spacing[4]};
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 16px;
 `;
 
 const FeatureDescription = styled.p`
-  color: ${theme.colors.neutral[600]};
+  color: #64748b;
   line-height: 1.6;
 `;
 
 const StatsSection = styled.section`
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: ${theme.spacing[16]} ${theme.spacing[8]};
-  margin-bottom: ${theme.spacing[10]};
+  padding: 60px 32px;
+  margin-bottom: 40px;
 `;
 
 const StatsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: ${theme.spacing[8]};
+  gap: 32px;
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
 `;
 
 const StatCard = styled.div`
-  padding: ${theme.spacing[6]};
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
 `;
 
 const StatNumber = styled.div`
-  font-size: ${theme.typography.fontSize['4xl']};
-  font-weight: ${theme.typography.fontWeight.extrabold};
-  margin-bottom: ${theme.spacing[2]};
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 8px;
 `;
 
 const StatLabel = styled.div`
-  font-size: ${theme.typography.fontSize.lg};
+  font-size: 18px;
   opacity: 0.9;
 `;
 
 const LocationPrompt = styled(motion.div)`
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  border: 1px solid #0ea5e9;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
-  padding: ${theme.spacing[6]};
-  margin-bottom: ${theme.spacing[8]};
+  padding: 24px;
+  margin: 32px auto 0;
+  max-width: 400px;
   text-align: center;
-  color: #0c4a6e;
+  color: white;
+  backdrop-filter: blur(10px);
 `;
 
 const LocationButton = styled.button`
-  background: #0ea5e9;
-  color: white;
+  background: white;
+  color: #667eea;
   border: none;
-  padding: ${theme.spacing[3]} ${theme.spacing[6]};
+  padding: 12px 24px;
   border-radius: 8px;
-  font-weight: ${theme.typography.fontWeight.medium};
+  font-weight: 600;
   cursor: pointer;
-  margin-top: ${theme.spacing[4]};
-  transition: background-color 0.3s ease;
+  margin-top: 16px;
+  transition: all 0.3s ease;
   
   &:hover {
-    background: #0284c7;
+    background: #f0f0f0;
+    transform: translateY(-2px);
   }
 `;
 
@@ -238,7 +245,7 @@ const Homepage = () => {
   }, [dispatch, currentLocation, locationLoading]);
 
   return (
-    <>
+    <ContentArea>
       <HeroSection>
         <HeroTitle
           initial={{ opacity: 0, y: -20 }}
@@ -373,7 +380,7 @@ const Homepage = () => {
           </FeatureCard>
         </FeaturesGrid>
       </FeaturesSection>
-    </>
+    </ContentArea>
   );
 };
 
