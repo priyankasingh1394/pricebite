@@ -84,17 +84,14 @@ const Products = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
-  const [error, setError] = useState('');
 
   // Handle search function
   const handleSearch = useCallback(async () => {
     if (!searchQuery.trim()) {
-      setError('Please type a product name.');
       return;
     }
 
     setLoading(true);
-    setError('');
     try {
       const res = await fetch(`http://localhost:5001/products/search?q=${encodeURIComponent(searchQuery.trim())}`);
       
@@ -105,18 +102,18 @@ const Products = () => {
       const data = await res.json();
       
       if (data && data.error) {
-        setError(data.error);
+        console.error(data.error);
       } else if (data && data.products && data.products.length === 0) {
-        setError(`No results found for "${searchQuery}". Try: ${suggestions.slice(0, 3).join(', ')}`);
+        console.log(`No results found for "${searchQuery}"`);
       } else if (data && data.products) {
         setResults(data.products);
       }
     } catch (err) {
-      setError('Could not reach the backend. Is it running?');
+      console.error('Search error:', err);
     } finally {
       setLoading(false);
     }
-  }, [searchQuery, suggestions, setError, setLoading]);
+  }, [searchQuery, suggestions, setLoading]);
 
   // Fetch product suggestions on mount
   useEffect(() => {
@@ -141,7 +138,6 @@ const Products = () => {
       return () => clearTimeout(timer);
     } else {
       setResults([]);
-      setError('');
     }
   }, [searchQuery, handleSearch]);
 
