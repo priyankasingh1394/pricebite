@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 
 const CategorySelector = ({ selectedCategory, selectedSubcategory, onCategoryChange, onSubcategoryChange }) => {
   const [categories, setCategories] = useState([]);
-  const [subcategories, setSubcategories] = useState([]);
   const [expandedCategories, setExpandedCategories] = useState({});
 
   useEffect(() => {
@@ -21,26 +20,11 @@ const CategorySelector = ({ selectedCategory, selectedSubcategory, onCategoryCha
       .catch(err => console.error('Error fetching categories:', err));
   }, []);
 
-  useEffect(() => {
-    if (selectedCategory) {
-      // Fetch subcategories for selected category
-      const categoryData = categories.find(cat => cat.category === selectedCategory);
-      if (categoryData && categoryData.subcategories) {
-        setSubcategories(categoryData.subcategories);
-      } else {
-        setSubcategories([]);
-      }
-    } else {
-      setSubcategories([]);
-    }
-  }, [selectedCategory, categories]);
-
   const handleCategoryClick = (category) => {
     if (selectedCategory === category) {
       setExpandedCategories(prev => ({ ...prev, [category]: !prev[category] }));
     } else {
       onCategoryChange(category);
-      onSubcategoryChange('');
       setExpandedCategories(prev => ({ ...prev, [category]: true }));
     }
   };
@@ -88,14 +72,14 @@ const CategorySelector = ({ selectedCategory, selectedSubcategory, onCategoryCha
                 </CategoryIconLarge>
                 <CategoryName>{categoryData.category}</CategoryName>
                 <CategoryCount>
-                  {categoryData.subcategories.length} subcategories
+                  {categoryData.subcategories?.length || 0} subcategories
                 </CategoryCount>
                 <ExpandIcon>
                   {expandedCategories[categoryData.category] ? '−' : '+'}
                 </ExpandIcon>
               </CategoryHeader>
               
-              {expandedCategories[categoryData.category] && categoryData.subcategories.length > 0 && (
+              {expandedCategories[categoryData.category] && categoryData.subcategories && categoryData.subcategories.length > 0 && (
                 <SubcategoryList>
                   {categoryData.subcategories.map(subcategory => (
                     <SubcategoryItem

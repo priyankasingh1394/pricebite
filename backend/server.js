@@ -12,13 +12,26 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/pricebite', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/pricebite', {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000,
+  connectTimeoutMS: 10000
 }).then(() => {
   console.log('Connected to MongoDB');
 }).catch(err => {
   console.error('MongoDB connection error:', err);
+  console.log('Retrying connection in 5 seconds...');
+  setTimeout(() => {
+    mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/pricebite', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }).then(() => {
+      console.log('Reconnected to MongoDB');
+    }).catch(retryErr => {
+      console.error('MongoDB reconnection error:', retryErr);
+    });
+  }, 5000);
 });
 
 // User Schema
