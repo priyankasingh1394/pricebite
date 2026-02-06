@@ -25,6 +25,7 @@ const CategorySelector = ({ selectedCategory, selectedSubcategory, onCategoryCha
       setExpandedCategories(prev => ({ ...prev, [category]: !prev[category] }));
     } else {
       onCategoryChange(category);
+      onSubcategoryChange('');
       setExpandedCategories(prev => ({ ...prev, [category]: true }));
     }
   };
@@ -45,6 +46,20 @@ const CategorySelector = ({ selectedCategory, selectedSubcategory, onCategoryCha
       'Toys & Games': '🎮'
     };
     return icons[category] || '📦';
+  };
+
+  const getCategoryDescription = (category) => {
+    const descriptions = {
+      'Grocery': 'Fresh produce, dairy, grains & beverages',
+      'Electronics': 'Mobile phones, laptops & accessories',
+      'Fashion': 'Men\'s & women\'s clothing & accessories',
+      'Home & Kitchen': 'Appliances, furniture & decor',
+      'Beauty & Personal Care': 'Makeup, skincare & personal care',
+      'Sports & Fitness': 'Equipment, gear & accessories',
+      'Books & Stationery': 'Books, notebooks & office supplies',
+      'Toys & Games': 'Toys, games & kids entertainment'
+    };
+    return descriptions[category] || 'Browse products in this category';
   };
 
   return (
@@ -71,6 +86,9 @@ const CategorySelector = ({ selectedCategory, selectedSubcategory, onCategoryCha
                   {getCategoryIcon(categoryData.category)}
                 </CategoryIconLarge>
                 <CategoryName>{categoryData.category}</CategoryName>
+                <CategoryDescription>
+                  {getCategoryDescription(categoryData.category)}
+                </CategoryDescription>
                 <CategoryCount>
                   {categoryData.subcategories?.length || 0} subcategories
                 </CategoryCount>
@@ -156,25 +174,30 @@ const CategoryIconLarge = styled.div`
   margin-right: 12px;
 `;
 
-const CategoryName = styled.div`
+const CategoryName = styled.h3`
   font-size: 18px;
   font-weight: 600;
-  color: #2c3e50;
-  flex: 1;
+  color: #1f2937;
+  margin-bottom: 8px;
+`;
+
+const CategoryDescription = styled.p`
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 12px;
+  line-height: 1.4;
 `;
 
 const CategoryCount = styled.div`
   font-size: 12px;
-  color: #64748b;
-  background: #e2e8f0;
-  padding: 4px 8px;
-  border-radius: 12px;
+  color: #9ca3af;
+  margin-bottom: 8px;
 `;
 
 const ExpandIcon = styled.div`
-  font-size: 18px;
-  color: #64748b;
-  font-weight: bold;
+  font-size: 20px;
+  color: #6b7280;
+  transition: transform 0.2s ease;
   margin-left: 8px;
 `;
 

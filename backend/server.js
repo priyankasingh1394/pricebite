@@ -690,8 +690,7 @@ const products = {
       { platform: 'Flipkart', price: 549, available: true, deliveryTime: '3-4 days' },
       { platform: 'Hamleys', price: 649, available: true, deliveryTime: '3-5 days' }
     ]
-  }
-};
+  },
   'rice_basmati_1kg': {
     id: 'rice_basmati_1kg',
     name: 'Basmati Rice',

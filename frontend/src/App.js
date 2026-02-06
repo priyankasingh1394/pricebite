@@ -36,11 +36,10 @@ const ContentArea = styled.div`
 `;
 
 const HeroSection = styled.section`
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 80px 32px 60px;
-  margin-bottom: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #fda085 100%);
+  padding: 120px 20px 80px;
   text-align: center;
+  color: white;
   position: relative;
   overflow: hidden;
   
@@ -51,9 +50,8 @@ const HeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
-    opacity: 0.5;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
     pointer-events: none;
   }
 `;
@@ -232,6 +230,116 @@ const LocationButton = styled.button`
     background: #f0f0f0;
     transform: translateY(-2px);
   }
+`;
+
+const CategoryFilterSection = styled.div`
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+`;
+
+const FilterHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+`;
+
+const FilterTitle = styled.h3`
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const FilterActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+const FilterButton = styled.button`
+  background: ${props => props.isActive ? '#667eea' : '#f8fafc'};
+  color: ${props => props.isActive ? 'white' : '#667eea'};
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: ${props => props.isActive ? '#5a67d8' : '#e2e8f0'};
+  }
+`;
+
+const ClearFilters = styled.button`
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #dc2626;
+  }
+`;
+
+const ActiveFiltersDisplay = styled.div`
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+`;
+
+const FilterTag = styled.div`
+  background: #e2e8f0;
+  color: #64748b;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+`;
+
+const FilterInfo = styled.span`
+  color: #2563eb;
+  font-weight: 500;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 20px 24px;
+  border: none;
+  border-radius: 16px;
+  font-size: 18px;
+  outline: none;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+`;
+
+const SearchButton = styled.button`
+  margin-top: 20px;
+  padding: 20px 40px;
+  background-color: ${props => props.disabled ? '#ccc' : '#2563eb'};
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
 `;
 
 // Homepage Component
