@@ -314,34 +314,6 @@ const FilterInfo = styled.span`
   font-weight: 500;
 `;
 
-const SearchInput = styled.input`
-  width: 100%;
-  padding: 20px 24px;
-  border: none;
-  border-radius: 16px;
-  font-size: 18px;
-  outline: none;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-`;
-
-const SearchButton = styled.button`
-  margin-top: 20px;
-  padding: 20px 40px;
-  background-color: ${props => props.disabled ? '#ccc' : '#2563eb'};
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
-  transition: all 0.3s ease;
-  width: 100%;
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-`;
-
 // Homepage Component
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -512,12 +484,10 @@ const ProductSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [suggestions, setSuggestions] = useState([]);
   const [error, setError] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubcategory, setSelectedSubcategory] = useState('');
-  const [categories, setCategories] = useState([]);
   const [showCategorySelector, setShowCategorySelector] = useState(false);
 
   // Fetch categories on mount
@@ -525,7 +495,7 @@ const ProductSearch = () => {
     fetch('http://localhost:5001/categories')
       .then(res => res.json())
       .then(data => {
-        setCategories(data);
+        // setCategories(data); // Future use for category dropdown
       })
       .catch(err => console.error('Error fetching categories:', err));
   }, []);
@@ -573,9 +543,19 @@ const ProductSearch = () => {
     fetch('http://localhost:5001/products/list')
       .then(res => res.json())
       .then(data => {
-        setSuggestions(data);
+        // setSuggestions(data); // Future use for autocomplete
       })
       .catch(err => console.error('Failed to fetch suggestions:', err));
+  }, []);
+
+  // Fetch categories on mount
+  useEffect(() => {
+    fetch('http://localhost:5001/categories')
+      .then(res => res.json())
+      .then(data => {
+        // setCategories(data); // Future use for category dropdown
+      })
+      .catch(err => console.error('Error fetching categories:', err));
   }, []);
 
   // Handle search with debouncing
