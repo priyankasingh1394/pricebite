@@ -1447,24 +1447,26 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
+        <Navbar />
         <AppContainer>
-          <Navbar />
-          <MainContent>
-            <Routes>
-              <Route path="/" element={<Homepage />} />
-              <Route path="/products" element={<ProductSearch />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/profile" element={
-                <ProtectedRoute>
-                  <div>Profile Page (Coming Soon)</div>
-                </ProtectedRoute>
-              } />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </MainContent>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/products" element={
+              <ContentArea>
+                <ProductSearch />
+              </ContentArea>
+            } />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <div>Profile Page (Coming Soon)</div>
+              </ProtectedRoute>
+            } />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         </AppContainer>
       </ThemeProvider>
     </Router>
