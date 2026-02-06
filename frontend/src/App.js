@@ -73,23 +73,29 @@ const HeroSubtitle = styled(motion.p)`
 
 const ProductGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: ${theme.spacing[8]};
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: ${theme.spacing[6]};
+  width: 100%;
+  box-sizing: border-box;
   
-  @media (max-width: ${theme.breakpoints.sm}) {
+  @media (max-width: 480px) {
     grid-template-columns: 1fr;
+    gap: ${theme.spacing[4]};
   }
   
-  @media (min-width: ${theme.breakpoints.sm}) and (max-width: ${theme.breakpoints.md}) {
+  @media (min-width: 481px) and (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
+    gap: ${theme.spacing[5]};
   }
   
-  @media (min-width: ${theme.breakpoints.md}) and (max-width: ${theme.breakpoints.lg}) {
+  @media (min-width: 769px) and (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
+    gap: ${theme.spacing[6]};
   }
   
-  @media (min-width: ${theme.breakpoints.lg}) {
+  @media (min-width: 1025px) {
     grid-template-columns: repeat(3, 1fr);
+    gap: ${theme.spacing[6]};
   }
 `;
 
@@ -232,11 +238,21 @@ const FilterActions = styled.div`
 // New Product Search Styled Components
 const SearchHeroSection = styled.section`
   background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #fda085 100%);
-  padding: 80px 20px 60px;
+  padding: 60px 20px 40px;
   text-align: center;
   color: white;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  
+  @media (max-width: 768px) {
+    padding: 40px 16px 30px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 30px 12px 20px;
+  }
   
   &::before {
     content: '';
@@ -259,23 +275,27 @@ const SearchHeroContent = styled.div`
 `;
 
 const SearchHeroTitle = styled(motion.h1)`
-  font-size: 48px;
+  font-size: clamp(28px, 5vw, 48px);
   font-weight: 800;
   margin-bottom: 16px;
   text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   letter-spacing: -0.02em;
+  line-height: 1.1;
 `;
 
 const SearchHeroSubtitle = styled(motion.p)`
-  font-size: 20px;
-  margin-bottom: 40px;
+  font-size: clamp(16px, 3vw, 20px);
+  margin-bottom: clamp(24px, 4vw, 40px);
   opacity: 0.9;
   font-weight: 300;
+  line-height: 1.4;
 `;
 
 const SearchContainer = styled.div`
-  max-width: 600px;
+  max-width: min(600px, 90vw);
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const SearchForm = styled.form`
@@ -284,39 +304,52 @@ const SearchForm = styled.form`
 
 const SearchInputGroup = styled.div`
   display: flex;
-  gap: 12px;
+  gap: clamp(8px, 2vw, 12px);
   align-items: center;
+  width: 100%;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 12px;
+  }
 `;
 
 const SearchInputField = styled.input`
   flex: 1;
-  padding: 18px 24px;
+  padding: clamp(14px, 3vw, 18px) clamp(16px, 4vw, 24px);
   border: none;
   border-radius: 16px;
-  font-size: 18px;
+  font-size: clamp(16px, 3vw, 18px);
   outline: none;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
   
   &:focus {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
   }
+  
+  @media (max-width: 480px) {
+    padding: 16px 20px;
+  }
 `;
 
 const SearchButton = styled.button`
-  width: 60px;
-  height: 60px;
+  width: clamp(50px, 10vw, 60px);
+  height: clamp(50px, 10vw, 60px);
   border: none;
   border-radius: 16px;
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
-  font-size: 24px;
+  font-size: clamp(18px, 4vw, 24px);
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  flex-shrink: 0;
   
   &:hover {
     transform: translateY(-2px);
@@ -326,6 +359,12 @@ const SearchButton = styled.button`
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
   }
 `;
 
@@ -368,18 +407,26 @@ const ClearIcon = styled.span`
 
 const SearchContentArea = styled.div`
   flex: 1;
-  padding: 40px 20px;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 20px;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 `;
 
 const CategoryFilterBar = styled.div`
   background: white;
   border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 32px;
+  padding: 20px;
+  margin-bottom: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid #e5e7eb;
+  width: 100%;
+  box-sizing: border-box;
+  
+  @media (max-width: 768px) {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
 `;
 
 const CategoryToggle = styled.button`
@@ -477,19 +524,26 @@ const ResultsText = styled.span`
 
 const ProductCard = styled(motion.div)`
   background: white;
-  border-radius: 20px;
-  padding: 24px;
+  border-radius: 16px;
+  padding: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid #e5e7eb;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  min-height: 380px;
+  min-height: 320px;
+  width: 100%;
+  box-sizing: border-box;
   
   &:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
     transform: translateY(-4px);
+  }
+  
+  @media (max-width: 768px) {
+    min-height: 280px;
+    padding: 16px;
   }
 `;
 
