@@ -77,6 +77,7 @@ const ProductGrid = styled.div`
   gap: ${theme.spacing[6]};
   width: 100%;
   box-sizing: border-box;
+  overflow: hidden;
   
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
@@ -411,6 +412,8 @@ const SearchContentArea = styled.div`
   max-width: 100%;
   overflow-x: hidden;
   box-sizing: border-box;
+  display: block;
+  width: 100%;
 `;
 
 const CategoryFilterBar = styled.div`
@@ -422,6 +425,8 @@ const CategoryFilterBar = styled.div`
   border: 1px solid #e5e7eb;
   width: 100%;
   box-sizing: border-box;
+  display: block;
+  overflow: hidden;
   
   @media (max-width: 768px) {
     padding: 16px;
@@ -448,6 +453,10 @@ const CategoryToggle = styled.button`
 
 const ResultsContainer = styled.div`
   min-height: 400px;
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
 `;
 
 const LoadingState = styled.div`
