@@ -62,38 +62,13 @@ const HeroTitle = styled(motion.h1)`
   margin-bottom: ${theme.spacing[6]};
   text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   letter-spacing: -0.02em;
-  line-height: 1.1;
 `;
 
 const HeroSubtitle = styled(motion.p)`
-  font-size: ${theme.typography.fontSize['2xl']};
-  opacity: 0.95;
+  font-size: ${theme.typography.fontSize['xl']};
   margin-bottom: ${theme.spacing[8]};
-  font-weight: ${theme.typography.fontWeight.medium};
-  letter-spacing: 0.01em;
-`;
-
-const SearchSection = styled.div`
-  max-width: 700px;
-  margin: 0 auto ${theme.spacing[10]};
-  position: relative;
-`;
-
-const ResultsSection = styled.section`
-  margin-bottom: ${theme.spacing[8]};
-`;
-
-const ResultsHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: ${theme.spacing[6]};
-`;
-
-const ResultsTitle = styled.h2`
-  font-size: ${theme.typography.fontSize['2xl']};
-  font-weight: ${theme.typography.fontWeight.semibold};
-  color: ${theme.colors.neutral[800]};
+  opacity: 0.9;
+  font-weight: 300;
 `;
 
 const ProductGrid = styled.div`
@@ -116,12 +91,6 @@ const ProductGrid = styled.div`
   @media (min-width: ${theme.breakpoints.lg}) {
     grid-template-columns: repeat(3, 1fr);
   }
-`;
-
-const EmptyState = styled.div`
-  text-align: center;
-  padding: ${theme.spacing[16]};
-  color: ${theme.colors.neutral[600]};
 `;
 
 const FeaturesSection = styled.section`
@@ -232,14 +201,12 @@ const LocationButton = styled.button`
   }
 `;
 
-const CategoryFilterSection = styled.div`
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+const FilterInfo = styled.span`
+  color: #2563eb;
+  font-weight: 500;
 `;
 
+// Filter Components used in CategoryFilterBar
 const FilterHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -262,56 +229,628 @@ const FilterActions = styled.div`
   gap: 12px;
 `;
 
-const FilterButton = styled.button`
+// New Product Search Styled Components
+const SearchHeroSection = styled.section`
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #fda085 100%);
+  padding: 80px 20px 60px;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    pointer-events: none;
+  }
+`;
+
+const SearchHeroContent = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+`;
+
+const SearchHeroTitle = styled(motion.h1)`
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+`;
+
+const SearchHeroSubtitle = styled(motion.p)`
+  font-size: 20px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+  font-weight: 300;
+`;
+
+const SearchContainer = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+`;
+
+const SearchForm = styled.form`
+  margin-bottom: 20px;
+`;
+
+const SearchInputGroup = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
+`;
+
+const SearchInputField = styled.input`
+  flex: 1;
+  padding: 18px 24px;
+  border: none;
+  border-radius: 16px;
+  font-size: 18px;
+  outline: none;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  
+  &:focus {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+`;
+
+const SearchButton = styled.button`
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+`;
+
+const ActiveFiltersBar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const FilterLabel = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+`;
+
+const FilterChip = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+`;
+
+const ClearIcon = styled.span`
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+const SearchContentArea = styled.div`
+  flex: 1;
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+`;
+
+const CategoryFilterBar = styled.div`
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+`;
+
+const CategoryToggle = styled.button`
   background: ${props => props.isActive ? '#667eea' : '#f8fafc'};
   color: ${props => props.isActive ? 'white' : '#667eea'};
   border: 2px solid #667eea;
-  border-radius: 8px;
-  padding: 8px 16px;
+  border-radius: 12px;
+  padding: 12px 24px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   
   &:hover {
     background: ${props => props.isActive ? '#5a67d8' : '#e2e8f0'};
+    transform: translateY(-1px);
   }
 `;
 
-const ClearFilters = styled.button`
-  background: #ef4444;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-size: 14px;
+const ResultsContainer = styled.div`
+  min-height: 400px;
+`;
+
+const LoadingState = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  color: #666;
+`;
+
+const LoadingSpinner = styled.div`
+  font-size: 48px;
+  margin-bottom: 16px;
+  animation: spin 1s linear infinite;
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+`;
+
+const LoadingText = styled.div`
+  font-size: 18px;
+  font-weight: 500;
+`;
+
+const ErrorState = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  color: #e74c3c;
+`;
+
+const ErrorIcon = styled.div`
+  font-size: 48px;
+  margin-bottom: 16px;
+`;
+
+const ErrorText = styled.div`
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+`;
+
+const SearchResultsHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e5e7eb;
+`;
+
+const ResultsCount = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+`;
+
+const ResultsNumber = styled.span`
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+`;
+
+const ResultsText = styled.span`
+  font-size: 18px;
+  color: #6b7280;
+  font-weight: 500;
+`;
+
+const ProductCard = styled(motion.div)`
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
   
   &:hover {
-    background: #dc2626;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
   }
 `;
 
-const ActiveFiltersDisplay = styled.div`
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 16px;
+const ProductHeader = styled.div`
+  margin-bottom: 16px;
 `;
 
-const FilterTag = styled.div`
-  background: #e2e8f0;
-  color: #64748b;
-  padding: 6px 12px;
-  border-radius: 20px;
+const ProductTitle = styled.h3`
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+  line-height: 1.3;
+`;
+
+const ProductBrand = styled.div`
   font-size: 14px;
-  border: 1px solid #d1d5db;
+  color: #6b7280;
+  font-weight: 500;
 `;
 
-const FilterInfo = styled.span`
-  color: #2563eb;
+const ProductMeta = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+`;
+
+const CategoryBadge = styled.span`
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+`;
+
+const SubcategoryBadge = styled.span`
+  background: #f3f4f6;
+  color: #6b7280;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
   font-weight: 500;
+`;
+
+const PriceInfo = styled.span`
+  background: #dcfce7;
+  color: #166534;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+`;
+
+const PriceComparison = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+`;
+
+const BestPrice = styled.div`
+  text-align: left;
+`;
+
+const BestPriceLabel = styled.div`
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 4px;
+`;
+
+const BestPriceValue = styled.div`
+  font-size: 24px;
+  font-weight: 700;
+  color: #059669;
+`;
+
+const DeliveryInfo = styled.div`
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+`;
+
+const PlatformList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+`;
+
+const PlatformChip = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 2px solid ${props => props.isBest ? '#10b981' : '#e5e7eb'};
+  background: ${props => props.isBest ? '#ecfdf5' : props.isAvailable ? '#f8fafc' : '#fef2f2'};
+  transition: all 0.2s ease;
+`;
+
+const PlatformName = styled.span`
+  font-size: 14px;
+  font-weight: 600;
+  color: ${props => props.isAvailable ? '#1f2937' : '#9ca3af'};
+`;
+
+const PlatformPrice = styled.span`
+  font-size: 16px;
+  font-weight: 700;
+  color: ${props => props.isBest ? '#059669' : props.isAvailable ? '#1f2937' : '#9ca3af'};
+`;
+
+const NutritionalInfo = styled.div`
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+`;
+
+const NutriLabel = styled.div`
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 8px;
+  font-weight: 600;
+`;
+
+const NutriGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+`;
+
+const NutriItem = styled.div`
+  font-size: 12px;
+  color: #6b7280;
+`;
+
+const SearchEmptyState = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px;
+  text-align: center;
+`;
+
+const EmptyIcon = styled.div`
+  font-size: 64px;
+  margin-bottom: 24px;
+  opacity: 0.5;
+`;
+
+const EmptyTitle = styled.h3`
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 12px;
+`;
+
+const EmptyText = styled.p`
+  font-size: 16px;
+  color: #6b7280;
+  max-width: 400px;
+`;
+
+// Modal Components
+const ProductModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`;
+
+const ModalOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+`;
+
+const ModalContent = styled.div`
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+`;
+
+const ModalClose = styled.button`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #f3f4f6;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #e5e7eb;
+    color: #1f2937;
+  }
+`;
+
+const ModalHeader = styled.div`
+  text-align: center;
+  margin-bottom: 32px;
+`;
+
+const ModalTitle = styled.h2`
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+`;
+
+const ModalBrand = styled.div`
+  font-size: 18px;
+  color: #6b7280;
+  font-weight: 500;
+`;
+
+const ModalMeta = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+`;
+
+const ModalCategory = styled.span`
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+`;
+
+const ModalSubcategory = styled.span`
+  background: #f3f4f6;
+  color: #6b7280;
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+const ModalPackage = styled.span`
+  background: #dcfce7;
+  color: #166534;
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+`;
+
+const ModalPrice = styled.div`
+  text-align: center;
+  margin-bottom: 32px;
+`;
+
+const ModalPriceLabel = styled.div`
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
+`;
+
+const ModalPriceValue = styled.div`
+  font-size: 28px;
+  font-weight: 700;
+  color: #059669;
+`;
+
+const PlatformComparison = styled.div`
+  margin-bottom: 32px;
+`;
+
+const ComparisonTitle = styled.h3`
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
+const PlatformRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-radius: 12px;
+  background: #f8fafc;
+  margin-bottom: 8px;
+`;
+
+const PlatformRowName = styled.span`
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+`;
+
+const PlatformRowPrice = styled.span`
+  font-size: 18px;
+  font-weight: 700;
+  color: #059669;
+`;
+
+const PlatformRowStatus = styled.span`
+  font-size: 14px;
+  color: ${props => props.available ? '#059669' : '#dc2626'};
+  font-weight: 500;
+`;
+
+const SavingsCalculation = styled.div`
+  text-align: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  border-radius: 16px;
+`;
+
+const SavingsTitle = styled.div`
+  font-size: 18px;
+  font-weight: 600;
+  color: #059669;
+  margin-bottom: 12px;
+`;
+
+const SavingsAmount = styled.div`
+  font-size: 32px;
+  font-weight: 800;
+  color: #059669;
+  margin-bottom: 8px;
+`;
+
+const SavingsPercentage = styled.div`
+  font-size: 16px;
+  color: #047857;
+  font-weight: 600;
 `;
 
 // Homepage Component
@@ -548,16 +1087,6 @@ const ProductSearch = () => {
       .catch(err => console.error('Failed to fetch suggestions:', err));
   }, []);
 
-  // Fetch categories on mount
-  useEffect(() => {
-    fetch('http://localhost:5001/categories')
-      .then(res => res.json())
-      .then(data => {
-        // setCategories(data); // Future use for category dropdown
-      })
-      .catch(err => console.error('Error fetching categories:', err));
-  }, []);
-
   // Handle search with debouncing
   useEffect(() => {
     if (searchQuery.trim()) {
@@ -599,38 +1128,69 @@ const ProductSearch = () => {
 
   return (
     <>
-      <HeroSection>
-        <HeroTitle
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        >
-          Search Products
-        </HeroTitle>
-        <HeroSubtitle
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 30, delay: 0.2 }}
-        >
-          Compare prices across multiple platforms and categories
-        </HeroSubtitle>
-        
-        {/* Category Filter */}
-        <CategoryFilterSection>
+      <SearchHeroSection>
+        <SearchHeroContent>
+          <SearchHeroTitle
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            🔍 Smart Product Search
+          </SearchHeroTitle>
+          <SearchHeroSubtitle
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30, delay: 0.2 }}
+          >
+            Compare prices across 15+ platforms and 8 categories
+          </SearchHeroSubtitle>
+          
+          <SearchContainer>
+            <SearchForm onSubmit={handleFormSubmit}>
+              <SearchInputGroup>
+                <SearchInputField
+                  type="text"
+                  placeholder="Search for products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <SearchButton type="submit" disabled={loading}>
+                  {loading ? '🔄' : '🔍'}
+                </SearchButton>
+              </SearchInputGroup>
+            </SearchForm>
+            
+            {activeFilters && (
+              <ActiveFiltersBar>
+                <FilterLabel>Active Filters:</FilterLabel>
+                <FilterChip>
+                  {selectedCategory || 'All Categories'}
+                  <ClearIcon onClick={clearFilters}>✕</ClearIcon>
+                </FilterChip>
+                {selectedSubcategory && (
+                  <FilterChip>
+                    {selectedSubcategory}
+                    <ClearIcon onClick={() => setSelectedSubcategory('')}>✕</ClearIcon>
+                  </FilterChip>
+                )}
+              </ActiveFiltersBar>
+            )}
+          </SearchContainer>
+        </SearchHeroContent>
+      </SearchHeroSection>
+
+      <SearchContentArea>
+        {/* Category Filter Section */}
+        <CategoryFilterBar>
           <FilterHeader>
-            <FilterTitle> Categories</FilterTitle>
+            <FilterTitle>🏷️ Browse Categories</FilterTitle>
             <FilterActions>
-              <FilterButton 
+              <CategoryToggle
                 onClick={() => setShowCategorySelector(!showCategorySelector)}
                 isActive={showCategorySelector}
               >
-                {showCategorySelector ? 'Hide Categories' : 'Browse Categories'}
-              </FilterButton>
-              {activeFilters && (
-                <ClearFilters onClick={clearFilters}>
-                  Clear Filters
-                </ClearFilters>
-              )}
+                {showCategorySelector ? 'Hide Categories' : 'Show Categories'}
+              </CategoryToggle>
             </FilterActions>
           </FilterHeader>
           
@@ -642,86 +1202,22 @@ const ProductSearch = () => {
               onSubcategoryChange={handleSubcategoryChange}
             />
           )}
-          
-          {activeFilters && (
-            <ActiveFiltersDisplay>
-              <FilterTag>
-                Category: <strong>{selectedCategory || 'All'}</strong>
-              </FilterTag>
-              {selectedSubcategory && (
-                <FilterTag>
-                  Subcategory: <strong>{selectedSubcategory}</strong>
-                </FilterTag>
-              )}
-            </ActiveFiltersDisplay>
-          )}
-        </CategoryFilterSection>
-        
-        <SearchSection>
-          <form onSubmit={handleFormSubmit}>
-            <input
-              type="text"
-              placeholder=" Search for products across all categories..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '20px 24px',
-                border: 'none',
-                borderRadius: '16px',
-                fontSize: '18px',
-                outline: 'none',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
-                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(10px)',
-                transition: 'all 0.3s ease'
-              }}
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              style={{
-                marginTop: '20px',
-                padding: '20px 40px',
-                backgroundColor: loading ? '#ccc' : '#2563eb',
-                color: 'white',
-                border: 'none',
-                borderRadius: '12px',
-                fontSize: '18px',
-                fontWeight: 'bold',
-                cursor: loading ? 'not-allowed' : 'pointer',
-                transition: 'all 0.3s ease',
-                width: '100%',
-                boxShadow: '0 4px 15px rgba(37, 99, 235, 0.3)'
-              }}
-            >
-              {loading ? 'Searching...' : 'Search'}
-            </button>
-          </form>
-        </SearchSection>
-      </HeroSection>
+        </CategoryFilterBar>
 
-      <ContentArea>
-        <ResultsSection>
+        {/* Results Section */}
+        <ResultsContainer>
           {loading && (
-            <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
-              <div style={{ fontSize: '18px', marginBottom: '8px' }}> Searching for best deals...</div>
-              <div style={{ fontSize: '14px' }}>Comparing prices across platforms and categories</div>
-            </div>
+            <LoadingState>
+              <LoadingSpinner>🔄</LoadingSpinner>
+              <LoadingText>Finding best deals across platforms...</LoadingText>
+            </LoadingState>
           )}
 
           {error && !loading && (
-            <div style={{ 
-              textAlign: 'center', 
-              padding: '20px',
-              color: '#e74c3c',
-              backgroundColor: '#fdf2f2',
-              borderRadius: '8px',
-              border: '1px solid #f5c6cb',
-              margin: '20px 0'
-            }}>
-              {error}
-            </div>
+            <ErrorState>
+              <ErrorIcon>⚠️</ErrorIcon>
+              <ErrorText>{error}</ErrorText>
+            </ErrorState>
           )}
 
           {!loading && results.length > 0 && (
@@ -730,299 +1226,147 @@ const ProductSearch = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              <ResultsHeader>
-                <ResultsTitle>
-                  {results.length} Products Found
-                  {activeFilters && (
-                    <FilterInfo>in {selectedCategory}{selectedSubcategory ? ` > ${selectedSubcategory}` : ''}</FilterInfo>
-                  )}
-                </ResultsTitle>
-              </ResultsHeader>
+              <SearchResultsHeader>
+                <ResultsCount>
+                  <ResultsNumber>{results.length}</ResultsNumber>
+                  <ResultsText>Products Found</ResultsText>
+                </ResultsCount>
+                {activeFilters && (
+                  <FilterInfo>in {selectedCategory}{selectedSubcategory ? ` > ${selectedSubcategory}` : ''}</FilterInfo>
+                )}
+              </SearchResultsHeader>
 
               <ProductGrid>
                 {results.map((product, index) => (
-                  <motion.div
+                  <ProductCard
                     key={product.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30, delay: index * 0.1 }}
-                    style={{
-                      backgroundColor: 'white',
-                      border: '1px solid #e0e0e0',
-                      borderRadius: '16px',
-                      padding: '28px',
-                      boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                      minHeight: '320px',
-                      display: 'flex',
-                      flexDirection: 'column'
-                    }}
-                    whileHover={{ y: -4, boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)' }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30, delay: index * 0.05 }}
+                    whileHover={{ y: -4 }}
                     onClick={() => handleProductClick(product)}
                   >
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                      <div style={{ marginBottom: '16px' }}>
-                        <h3 style={{ 
-                          fontSize: '22px', 
-                          fontWeight: 'bold', 
-                          color: '#2c3e50', 
-                          marginBottom: '8px',
-                          lineHeight: '1.2'
-                        }}>
-                          {product.name}
-                        </h3>
-                        <div style={{ 
-                          fontSize: '15px', 
-                          color: '#666', 
-                          marginBottom: '12px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '8px'
-                        }}>
-                          <span style={{ 
-                            backgroundColor: '#f0f0f0',
-                            padding: '4px 8px',
-                            borderRadius: '12px',
-                            fontSize: '12px',
-                            fontWeight: 'medium'
-                          }}>
-                            {product.brand}
-                          </span>
-                          <span>{product.category}</span>
-                          {product.subcategory && (
-                            <span> > {product.subcategory}</span>
-                          )}
-                          <span style={{ 
-                            color: '#2563eb',
-                            fontWeight: 'medium'
-                          }}>
-                            ₹{product.unitPrice}/{product.unit}
-                          </span>
-                        </div>
-                      </div>
+                    <ProductHeader>
+                      <ProductTitle>{product.name}</ProductTitle>
+                      <ProductBrand>{product.brand}</ProductBrand>
+                    </ProductHeader>
+                    
+                    <ProductMeta>
+                      <CategoryBadge>{product.category}</CategoryBadge>
+                      {product.subcategory && (
+                        <SubcategoryBadge>{product.subcategory}</SubcategoryBadge>
+                      )}
+                      <PriceInfo>₹{product.unitPrice}/{product.unit}</PriceInfo>
+                    </ProductMeta>
 
-                      <div style={{ marginBottom: '16px' }}>
-                        <div style={{ 
-                          fontSize: '14px', 
-                          color: '#666', 
-                          marginBottom: '8px',
-                          fontWeight: 'medium'
-                        }}>
-                          Best Price: <span style={{ color: '#2563eb', fontWeight: 'bold' }}>₹{Math.min(...product.platforms.map(p => p.price))}</span>
-                        </div>
-                        <div style={{ 
-                          fontSize: '13px', 
-                          color: '#888', 
-                          marginBottom: '12px'
-                        }}>
-                          Fastest Delivery: <span style={{ fontWeight: 'medium' }}>
-                            {product.platforms.find(p => p.available)?.deliveryTime || 'N/A'}
-                          </span>
-                        </div>
-                      </div>
+                    <PriceComparison>
+                      <BestPrice>
+                        <BestPriceLabel>Best Price</BestPriceLabel>
+                        <BestPriceValue>₹{Math.min(...product.platforms.map(p => p.price))}</BestPriceValue>
+                      </BestPrice>
+                      <DeliveryInfo>
+                        🚚 {product.platforms.find(p => p.available)?.deliveryTime || 'N/A'}
+                      </DeliveryInfo>
+                    </PriceComparison>
 
-                      <div style={{ 
-                        display: 'flex', 
-                        gap: '6px', 
-                        flexWrap: 'wrap', 
-                        marginBottom: '16px'
-                      }}>
-                        {product.platforms.map(platform => (
-                          <div
-                            key={platform.platform}
-                            style={{
-                              padding: '6px 12px',
-                              borderRadius: '20px',
-                              fontSize: '13px',
-                              backgroundColor: platform.available ? '#e8f5e8' : '#ffebee',
-                              color: platform.available ? '#2e7d32' : '#c62828',
-                              border: platform.price === Math.min(...product.platforms.map(p => p.price)) ? '2px solid #4caf50' : '1px solid #e0e0e0',
-                              fontWeight: 'medium'
-                            }}
-                          >
-                            {platform.platform}: ₹{platform.price}
-                          </div>
-                        ))}
-                      </div>
+                    <PlatformList>
+                      {product.platforms.map(platform => (
+                        <PlatformChip
+                          key={platform.platform}
+                          isBest={platform.price === Math.min(...product.platforms.map(p => p.price))}
+                          isAvailable={platform.available}
+                        >
+                          <PlatformName>{platform.platform}</PlatformName>
+                          <PlatformPrice>₹{platform.price}</PlatformPrice>
+                        </PlatformChip>
+                      ))}
+                    </PlatformList>
 
-                      <div style={{ 
-                        marginTop: 'auto',
-                        paddingTop: '16px', 
-                        borderTop: '1px solid #e0e0e0', 
-                        fontSize: '12px', 
-                        color: '#666',
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(2, 1fr)',
-                        gap: '4px'
-                      }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span></span>
-                          <span>{product.nutritionalInfo.calories} cal</span>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span></span>
-                          <span>{product.nutritionalInfo.protein}g</span>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span></span>
-                          <span>{product.nutritionalInfo.fat}g</span>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span></span>
-                          <span>{product.nutritionalInfo.carbs}g</span>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
+                    {product.nutritionalInfo && (
+                      <NutritionalInfo>
+                        <NutriLabel>Nutrition</NutriLabel>
+                        <NutriGrid>
+                          <NutriItem>🔥 {product.nutritionalInfo.calories} cal</NutriItem>
+                          <NutriItem>🥩 {product.nutritionalInfo.protein}g</NutriItem>
+                          <NutriItem>🧈 {product.nutritionalInfo.fat}g</NutriItem>
+                          <NutriItem>🌾 {product.nutritionalInfo.carbs}g</NutriItem>
+                        </NutriGrid>
+                      </NutritionalInfo>
+                    )}
+                  </ProductCard>
                 ))}
               </ProductGrid>
             </motion.div>
           )}
 
           {!loading && results.length === 0 && searchQuery && (
-            <EmptyState>
-              <div style={{ fontSize: '48px', marginBottom: '16px' }}></div>
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#2c3e50', marginBottom: '8px' }}>
-                No products found
-              </h3>
-              <p style={{ fontSize: '16px', color: '#666' }}>
-                Try searching for something different or browse categories
-              </p>
-            </EmptyState>
+            <SearchEmptyState>
+              <EmptyIcon>🔍</EmptyIcon>
+              <EmptyTitle>No products found</EmptyTitle>
+              <EmptyText>Try searching for something different or browse categories</EmptyText>
+            </SearchEmptyState>
           )}
 
           {!loading && !searchQuery && (
-            <EmptyState>
-              <div style={{ fontSize: '48px', marginBottom: '16px' }}></div>
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#2c3e50', marginBottom: '8px' }}>
-                Start Searching
-              </h3>
-              <p style={{ fontSize: '16px', color: '#666' }}>
-                Search for products to compare prices across multiple platforms and categories
-              </p>
-            </EmptyState>
+            <SearchEmptyState>
+              <EmptyIcon>🛒</EmptyIcon>
+              <EmptyTitle>Start Searching</EmptyTitle>
+              <EmptyText>Search for products to compare prices across multiple platforms</EmptyText>
+            </SearchEmptyState>
           )}
-        </ResultsSection>
+        </ResultsContainer>
 
         {/* Product Details Modal */}
         {selectedProduct && (
-          <div style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 1000
-          }}>
-            <div style={{
-              backgroundColor: 'white',
-              borderRadius: '20px',
-              padding: '32px',
-              maxWidth: '800px',
-              width: '95%',
-              maxHeight: '85vh',
-              overflowY: 'auto',
-              position: 'relative',
-              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)'
-            }}>
-              <button
-                onClick={() => setSelectedProduct(null)}
-                style={{
-                  position: 'absolute',
-                  top: '16px',
-                  right: '16px',
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  fontSize: '24px',
-                  cursor: 'pointer',
-                  color: '#666'
-                }}
-              >
-                ×
-              </button>
+          <ProductModal>
+            <ModalOverlay onClick={() => setSelectedProduct(null)} />
+            <ModalContent>
+              <ModalClose onClick={() => setSelectedProduct(null)}>✕</ModalClose>
+              
+              <ModalHeader>
+                <ModalTitle>{selectedProduct.name}</ModalTitle>
+                <ModalBrand>{selectedProduct.brand}</ModalBrand>
+              </ModalHeader>
 
-              {/* Product Header */}
-              <div style={{ 
-                marginBottom: '32px',
-                textAlign: 'center'
-              }}>
-                <h2 style={{ 
-                  fontSize: '32px', 
-                  fontWeight: 'bold', 
-                  color: '#2c3e50',
-                  marginBottom: '12px',
-                  lineHeight: '1.2'
-                }}>
-                  {selectedProduct.name}
-                </h2>
-                <div style={{ 
-                  display: 'flex', 
-                  justifyContent: 'center', 
-                  gap: '12px',
-                  marginBottom: '16px',
-                  flexWrap: 'wrap'
-                }}>
-                  <span style={{ 
-                    backgroundColor: '#f0f9ff',
-                    color: '#2563eb',
-                    padding: '6px 16px',
-                    borderRadius: '20px',
-                    fontSize: '14px',
-                    fontWeight: 'medium'
-                  }}>
-                    {selectedProduct.brand}
-                  </span>
-                  <span style={{ 
-                    backgroundColor: '#f3f4f6',
-                    color: '#6b7280',
-                    padding: '6px 16px',
-                    borderRadius: '20px',
-                    fontSize: '14px'
-                  }}>
-                    {selectedProduct.category}
-                  </span>
-                  {selectedProduct.subcategory && (
-                    <span style={{ 
-                      backgroundColor: '#e2e8f0',
-                      color: '#64748b',
-                      padding: '6px 16px',
-                      borderRadius: '20px',
-                      fontSize: '14px'
-                    }}>
-                      {selectedProduct.subcategory}
-                    </span>
-                  )}
-                  <span style={{ 
-                    backgroundColor: '#ecfdf5',
-                    color: '#059669',
-                    padding: '6px 16px',
-                    borderRadius: '20px',
-                    fontSize: '14px',
-                    fontWeight: 'medium'
-                  }}>
-                    {selectedProduct.packageSize}
-                  </span>
-                </div>
-                <div style={{ 
-                  fontSize: '18px', 
-                  color: '#2563eb',
-                  fontWeight: 'bold'
-                }}>
-                  💰 Unit Price: ₹{selectedProduct.unitPrice} per {selectedProduct.unit}
-                </div>
-              </div>
+              <ModalMeta>
+                <ModalCategory>{selectedProduct.category}</ModalCategory>
+                {selectedProduct.subcategory && (
+                  <ModalSubcategory>{selectedProduct.subcategory}</ModalSubcategory>
+                )}
+                <ModalPackage>{selectedProduct.packageSize}</ModalPackage>
+              </ModalMeta>
 
-              {/* Price Comparison and other modal content */}
-              {/* ... (rest of the modal implementation from before) */}
-            </div>
-          </div>
+              <ModalPrice>
+                <ModalPriceLabel>Unit Price</ModalPriceLabel>
+                <ModalPriceValue>₹{selectedProduct.unitPrice} per {selectedProduct.unit}</ModalPriceValue>
+              </ModalPrice>
+
+              <PlatformComparison>
+                <ComparisonTitle>💰 Platform Price Comparison</ComparisonTitle>
+                {selectedProduct.platforms.map(platform => (
+                  <PlatformRow key={platform.platform}>
+                    <PlatformRowName>{platform.platform}</PlatformRowName>
+                    <PlatformRowPrice>₹{platform.price}</PlatformRowPrice>
+                    <PlatformRowStatus available={platform.available}>
+                      {platform.available ? `✅ ${platform.deliveryTime}` : '❌ Unavailable'}
+                    </PlatformRowStatus>
+                  </PlatformRow>
+                ))}
+              </PlatformComparison>
+
+              <SavingsCalculation>
+                <SavingsTitle>💸 Your Savings</SavingsTitle>
+                <SavingsAmount>
+                  Save ₹{Math.max(...selectedProduct.platforms.map(p => p.price)) - Math.min(...selectedProduct.platforms.map(p => p.price))}
+                </SavingsAmount>
+                <SavingsPercentage>
+                  ({Math.round((1 - Math.min(...selectedProduct.platforms.map(p => p.price)) / Math.max(...selectedProduct.platforms.map(p => p.price))) * 100)}%)
+                </SavingsPercentage>
+              </SavingsCalculation>
+            </ModalContent>
+          </ProductModal>
         )}
-      </ContentArea>
+      </SearchContentArea>
     </>
   );
 };
