@@ -693,12 +693,16 @@ const SearchEmptyState = styled.div`
   justify-content: center;
   padding: 120px 20px;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 400px;
 `;
 
 const EmptyIcon = styled.div`
   font-size: 64px;
   margin-bottom: 24px;
   opacity: 0.5;
+  text-align: center;
 `;
 
 const EmptyTitle = styled.h3`
@@ -706,12 +710,15 @@ const EmptyTitle = styled.h3`
   font-weight: 700;
   color: #1f2937;
   margin-bottom: 12px;
+  text-align: center;
 `;
 
 const EmptyText = styled.p`
   font-size: 16px;
   color: #6b7280;
   max-width: 400px;
+  text-align: center;
+  line-height: 1.5;
 `;
 
 // Modal Components
