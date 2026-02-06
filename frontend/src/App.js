@@ -9,6 +9,8 @@ import Login from './components/Login';
 import Register from './components/Register';
 import About from './components/About';
 import Contact from './components/Contact';
+import CategorySelector from './components/CategorySelector';
+import HotDeals from './components/HotDeals';
 import ProtectedRoute from './components/ProtectedRoute';
 import { getCurrentLocation } from './store/slices/locationSlice';
 
@@ -232,6 +234,116 @@ const LocationButton = styled.button`
   }
 `;
 
+const CategoryFilterSection = styled.div`
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+`;
+
+const FilterHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+`;
+
+const FilterTitle = styled.h3`
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const FilterActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+const FilterButton = styled.button`
+  background: ${props => props.isActive ? '#667eea' : '#f8fafc'};
+  color: ${props => props.isActive ? 'white' : '#667eea'};
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: ${props => props.isActive ? '#5a67d8' : '#e2e8f0'};
+  }
+`;
+
+const ClearFilters = styled.button`
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #dc2626;
+  }
+`;
+
+const ActiveFiltersDisplay = styled.div`
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+`;
+
+const FilterTag = styled.div`
+  background: #e2e8f0;
+  color: #64748b;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+`;
+
+const FilterInfo = styled.span`
+  color: #2563eb;
+  font-weight: 500;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 20px 24px;
+  border: none;
+  border-radius: 16px;
+  font-size: 18px;
+  outline: none;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+`;
+
+const SearchButton = styled.button`
+  margin-top: 20px;
+  padding: 20px 40px;
+  background-color: ${props => props.disabled ? '#ccc' : '#2563eb'};
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+`;
+
 // Homepage Component
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -246,6 +358,7 @@ const Homepage = () => {
 
   return (
     <ContentArea>
+      {/* Hero Section */}
       <HeroSection>
         <HeroTitle
           initial={{ opacity: 0, y: -20 }}
@@ -278,6 +391,13 @@ const Homepage = () => {
         )}
       </HeroSection>
 
+      {/* Hot Deals Section */}
+      <HotDeals />
+
+      {/* Category Selection */}
+      <CategorySelector />
+
+      {/* Stats Section */}
       <StatsSection>
         <StatsGrid>
           <StatCard>
@@ -285,7 +405,11 @@ const Homepage = () => {
             <StatLabel>Products</StatLabel>
           </StatCard>
           <StatCard>
-            <StatNumber>3</StatNumber>
+            <StatNumber>8</StatNumber>
+            <StatLabel>Categories</StatLabel>
+          </StatCard>
+          <StatCard>
+            <StatNumber>15+</StatNumber>
             <StatLabel>Platforms</StatLabel>
           </StatCard>
           <StatCard>
@@ -299,6 +423,7 @@ const Homepage = () => {
         </StatsGrid>
       </StatsSection>
 
+      {/* Features Section */}
       <FeaturesSection>
         <FeaturesGrid>
           <FeatureCard
@@ -310,7 +435,7 @@ const Homepage = () => {
             <FeatureIcon>🔍</FeatureIcon>
             <FeatureTitle>Real-time Search</FeatureTitle>
             <FeatureDescription>
-              Search across multiple platforms instantly to find the best deals on groceries, dairy, vegetables, and more.
+              Search across multiple platforms instantly to find best deals on groceries, electronics, fashion, home & kitchen, beauty products, and more.
             </FeatureDescription>
           </FeatureCard>
           
@@ -323,7 +448,7 @@ const Homepage = () => {
             <FeatureIcon>💰</FeatureIcon>
             <FeatureTitle>Price Comparison</FeatureTitle>
             <FeatureDescription>
-              Compare prices from Zepto, Blinkit, and Instamart to ensure you always get the best value for your money.
+              Compare prices from Amazon, Flipkart, Myntra, Zepto, Blinkit, Instamart and more to ensure you always get the best value for your money.
             </FeatureDescription>
           </FeatureCard>
           
@@ -336,7 +461,7 @@ const Homepage = () => {
             <FeatureIcon>🚚</FeatureIcon>
             <FeatureTitle>Delivery Tracking</FeatureTitle>
             <FeatureDescription>
-              Track delivery times and availability across platforms to get your groceries when you need them.
+              Track delivery times and availability across platforms to get your products when you need them.
             </FeatureDescription>
           </FeatureCard>
           
@@ -347,9 +472,9 @@ const Homepage = () => {
             whileHover={{ y: -4 }}
           >
             <FeatureIcon>📊</FeatureIcon>
-            <FeatureTitle>Nutritional Info</FeatureTitle>
+            <FeatureTitle>Category-wise Search</FeatureTitle>
             <FeatureDescription>
-              Make informed choices with detailed nutritional information for all products in our database.
+              Browse products by categories like Grocery, Electronics, Fashion, Home & Kitchen, Beauty, Sports, Books, Toys and more.
             </FeatureDescription>
           </FeatureCard>
           
@@ -359,10 +484,10 @@ const Homepage = () => {
             transition={{ delay: 0.5 }}
             whileHover={{ y: -4 }}
           >
-            <FeatureIcon>📍</FeatureIcon>
-            <FeatureTitle>Location-based</FeatureTitle>
+            <FeatureIcon>�</FeatureIcon>
+            <FeatureTitle>Hot Deals</FeatureTitle>
             <FeatureDescription>
-              Get accurate pricing and delivery estimates based on your current location for the best experience.
+              Discover verified deals with massive savings across all categories. Updated 24/7 with real price tracking.
             </FeatureDescription>
           </FeatureCard>
           
@@ -372,10 +497,10 @@ const Homepage = () => {
             transition={{ delay: 0.6 }}
             whileHover={{ y: -4 }}
           >
-            <FeatureIcon>👤</FeatureIcon>
-            <FeatureTitle>Personalized</FeatureTitle>
+            <FeatureIcon>�</FeatureIcon>
+            <FeatureTitle>Location-based</FeatureTitle>
             <FeatureDescription>
-              Save your preferences, create shopping lists, and get personalized recommendations tailored to you.
+              Get accurate pricing and delivery estimates based on your current location for the best experience.
             </FeatureDescription>
           </FeatureCard>
         </FeaturesGrid>
@@ -392,6 +517,20 @@ const ProductSearch = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [error, setError] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedSubcategory, setSelectedSubcategory] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [showCategorySelector, setShowCategorySelector] = useState(false);
+
+  // Fetch categories on mount
+  useEffect(() => {
+    fetch('http://localhost:5001/categories')
+      .then(res => res.json())
+      .then(data => {
+        setCategories(data);
+      })
+      .catch(err => console.error('Error fetching categories:', err));
+  }, []);
 
   // Handle search function
   const handleSearch = useCallback(async () => {
@@ -403,7 +542,13 @@ const ProductSearch = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`http://localhost:5001/products/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      const params = new URLSearchParams({
+        q: searchQuery.trim(),
+        category: selectedCategory,
+        subcategory: selectedSubcategory
+      });
+      
+      const res = await fetch(`http://localhost:5001/products/search?${params}`);
       
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
@@ -414,7 +559,7 @@ const ProductSearch = () => {
       if (data.error) {
         setError(data.error);
       } else if (data.products.length === 0) {
-        setError(`No results found for "${searchQuery}". Try: ${suggestions.slice(0, 3).join(', ')}`);
+        setError(`No results found for "${searchQuery}". Try different keywords or categories.`);
       } else {
         setResults(data.products);
       }
@@ -423,20 +568,16 @@ const ProductSearch = () => {
     } finally {
       setLoading(false);
     }
-  }, [searchQuery, suggestions, setError, setLoading]);
+  }, [searchQuery, selectedCategory, selectedSubcategory]);
 
   // Fetch product suggestions on mount
   useEffect(() => {
-    const fetchSuggestions = async () => {
-      try {
-        const res = await fetch('http://localhost:5001/products/list');
-        const data = await res.json();
+    fetch('http://localhost:5001/products/list')
+      .then(res => res.json())
+      .then(data => {
         setSuggestions(data);
-      } catch (err) {
-        console.error('Failed to fetch suggestions:', err);
-      }
-    };
-    fetchSuggestions();
+      })
+      .catch(err => console.error('Failed to fetch suggestions:', err));
   }, []);
 
   // Handle search with debouncing
@@ -461,6 +602,23 @@ const ProductSearch = () => {
     setSelectedProduct(product);
   };
 
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setSelectedSubcategory('');
+    setShowCategorySelector(false);
+  };
+
+  const handleSubcategoryChange = (subcategory) => {
+    setSelectedSubcategory(subcategory);
+  };
+
+  const clearFilters = () => {
+    setSelectedCategory('');
+    setSelectedSubcategory('');
+  };
+
+  const activeFilters = selectedCategory || selectedSubcategory;
+
   return (
     <>
       <HeroSection>
@@ -469,21 +627,63 @@ const ProductSearch = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
-          🛒 Search Products
+          Search Products
         </HeroTitle>
         <HeroSubtitle
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30, delay: 0.2 }}
         >
-          Compare prices across multiple platforms
+          Compare prices across multiple platforms and categories
         </HeroSubtitle>
+        
+        {/* Category Filter */}
+        <CategoryFilterSection>
+          <FilterHeader>
+            <FilterTitle> Categories</FilterTitle>
+            <FilterActions>
+              <FilterButton 
+                onClick={() => setShowCategorySelector(!showCategorySelector)}
+                isActive={showCategorySelector}
+              >
+                {showCategorySelector ? 'Hide Categories' : 'Browse Categories'}
+              </FilterButton>
+              {activeFilters && (
+                <ClearFilters onClick={clearFilters}>
+                  Clear Filters
+                </ClearFilters>
+              )}
+            </FilterActions>
+          </FilterHeader>
+          
+          {showCategorySelector && (
+            <CategorySelector 
+              selectedCategory={selectedCategory}
+              selectedSubcategory={selectedSubcategory}
+              onCategoryChange={handleCategoryChange}
+              onSubcategoryChange={handleSubcategoryChange}
+            />
+          )}
+          
+          {activeFilters && (
+            <ActiveFiltersDisplay>
+              <FilterTag>
+                Category: <strong>{selectedCategory || 'All'}</strong>
+              </FilterTag>
+              {selectedSubcategory && (
+                <FilterTag>
+                  Subcategory: <strong>{selectedSubcategory}</strong>
+                </FilterTag>
+              )}
+            </ActiveFiltersDisplay>
+          )}
+        </CategoryFilterSection>
         
         <SearchSection>
           <form onSubmit={handleFormSubmit}>
             <input
               type="text"
-              placeholder="🔍 Search for groceries, dairy, vegetables & more..."
+              placeholder=" Search for products across all categories..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
@@ -527,8 +727,8 @@ const ProductSearch = () => {
         <ResultsSection>
           {loading && (
             <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
-              <div style={{ fontSize: '18px', marginBottom: '8px' }}>🔍 Searching for best deals...</div>
-              <div style={{ fontSize: '14px' }}>Comparing prices across platforms</div>
+              <div style={{ fontSize: '18px', marginBottom: '8px' }}> Searching for best deals...</div>
+              <div style={{ fontSize: '14px' }}>Comparing prices across platforms and categories</div>
             </div>
           )}
 
@@ -555,6 +755,9 @@ const ProductSearch = () => {
               <ResultsHeader>
                 <ResultsTitle>
                   {results.length} Products Found
+                  {activeFilters && (
+                    <FilterInfo>in {selectedCategory}{selectedSubcategory ? ` > ${selectedSubcategory}` : ''}</FilterInfo>
+                  )}
                 </ResultsTitle>
               </ResultsHeader>
 
@@ -580,7 +783,6 @@ const ProductSearch = () => {
                     whileHover={{ y: -4, boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)' }}
                     onClick={() => handleProductClick(product)}
                   >
-                    {/* Product card content */}
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                       <div style={{ marginBottom: '16px' }}>
                         <h3 style={{ 
@@ -610,6 +812,9 @@ const ProductSearch = () => {
                             {product.brand}
                           </span>
                           <span>{product.category}</span>
+                          {product.subcategory && (
+                            <span> > {product.subcategory}</span>
+                          )}
                           <span style={{ 
                             color: '#2563eb',
                             fontWeight: 'medium'
@@ -626,14 +831,14 @@ const ProductSearch = () => {
                           marginBottom: '8px',
                           fontWeight: 'medium'
                         }}>
-                          💰 Best Price: <span style={{ color: '#2563eb', fontWeight: 'bold' }}>₹{Math.min(...product.platforms.map(p => p.price))}</span>
+                          Best Price: <span style={{ color: '#2563eb', fontWeight: 'bold' }}>₹{Math.min(...product.platforms.map(p => p.price))}</span>
                         </div>
                         <div style={{ 
                           fontSize: '13px', 
                           color: '#888', 
                           marginBottom: '12px'
                         }}>
-                          🚚 Fastest Delivery: <span style={{ fontWeight: 'medium' }}>
+                          Fastest Delivery: <span style={{ fontWeight: 'medium' }}>
                             {product.platforms.find(p => p.available)?.deliveryTime || 'N/A'}
                           </span>
                         </div>
@@ -671,22 +876,22 @@ const ProductSearch = () => {
                         color: '#666',
                         display: 'grid',
                         gridTemplateColumns: 'repeat(2, 1fr)',
-                        gap: '6px'
+                        gap: '4px'
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span>🔥</span>
+                          <span></span>
                           <span>{product.nutritionalInfo.calories} cal</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span>🥩</span>
+                          <span></span>
                           <span>{product.nutritionalInfo.protein}g</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span>🧈</span>
+                          <span></span>
                           <span>{product.nutritionalInfo.fat}g</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <span>🌾</span>
+                          <span></span>
                           <span>{product.nutritionalInfo.carbs}g</span>
                         </div>
                       </div>
@@ -699,24 +904,24 @@ const ProductSearch = () => {
 
           {!loading && results.length === 0 && searchQuery && (
             <EmptyState>
-              <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }}></div>
               <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#2c3e50', marginBottom: '8px' }}>
                 No products found
               </h3>
               <p style={{ fontSize: '16px', color: '#666' }}>
-                Try searching for something different
+                Try searching for something different or browse categories
               </p>
             </EmptyState>
           )}
 
           {!loading && !searchQuery && (
             <EmptyState>
-              <div style={{ fontSize: '48px', marginBottom: '16px' }}>🛒</div>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }}></div>
               <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#2c3e50', marginBottom: '8px' }}>
                 Start Searching
               </h3>
               <p style={{ fontSize: '16px', color: '#666' }}>
-                Search for products to compare prices across multiple platforms
+                Search for products to compare prices across multiple platforms and categories
               </p>
             </EmptyState>
           )}
@@ -736,7 +941,6 @@ const ProductSearch = () => {
             justifyContent: 'center',
             zIndex: 1000
           }}>
-            {/* Modal content from previous implementation */}
             <div style={{
               backgroundColor: 'white',
               borderRadius: '20px',
@@ -804,6 +1008,17 @@ const ProductSearch = () => {
                   }}>
                     {selectedProduct.category}
                   </span>
+                  {selectedProduct.subcategory && (
+                    <span style={{ 
+                      backgroundColor: '#e2e8f0',
+                      color: '#64748b',
+                      padding: '6px 16px',
+                      borderRadius: '20px',
+                      fontSize: '14px'
+                    }}>
+                      {selectedProduct.subcategory}
+                    </span>
+                  )}
                   <span style={{ 
                     backgroundColor: '#ecfdf5',
                     color: '#059669',

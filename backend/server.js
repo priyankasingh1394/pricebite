@@ -247,7 +247,8 @@ const products = {
     id: 'milk_amul_1l',
     name: 'Milk',
     brand: 'Amul',
-    category: 'Dairy',
+    category: 'Grocery',
+    subcategory: 'Dairy',
     packageSize: '1 Liter',
     unitPrice: 52,
     unit: 'per liter',
@@ -267,7 +268,8 @@ const products = {
     id: 'milk_motherdairy_1l',
     name: 'Milk',
     brand: 'Mother Dairy',
-    category: 'Dairy',
+    category: 'Grocery',
+    subcategory: 'Dairy',
     packageSize: '1 Liter',
     unitPrice: 50,
     unit: 'per liter',
@@ -287,7 +289,8 @@ const products = {
     id: 'eggs_amul_12pcs',
     name: 'Eggs',
     brand: 'Amul',
-    category: 'Dairy',
+    category: 'Grocery',
+    subcategory: 'Dairy',
     packageSize: '12 Pieces',
     unitPrice: 89,
     unit: 'per dozen',
@@ -307,7 +310,8 @@ const products = {
     id: 'butter_amul_500g',
     name: 'Butter',
     brand: 'Amul',
-    category: 'Dairy',
+    category: 'Grocery',
+    subcategory: 'Dairy',
     packageSize: '500g',
     unitPrice: 245,
     unit: 'per 500g',
@@ -329,7 +333,8 @@ const products = {
     id: 'tomatoes_fresh_1kg',
     name: 'Tomatoes',
     brand: 'Fresh',
-    category: 'Vegetables',
+    category: 'Grocery',
+    subcategory: 'Vegetables',
     packageSize: '1 kg',
     unitPrice: 28,
     unit: 'per kg',
@@ -349,7 +354,8 @@ const products = {
     id: 'onions_fresh_1kg',
     name: 'Onions',
     brand: 'Fresh',
-    category: 'Vegetables',
+    category: 'Grocery',
+    subcategory: 'Vegetables',
     packageSize: '1 kg',
     unitPrice: 35,
     unit: 'per kg',
@@ -369,7 +375,8 @@ const products = {
     id: 'potatoes_fresh_1kg',
     name: 'Potatoes',
     brand: 'Fresh',
-    category: 'Vegetables',
+    category: 'Grocery',
+    subcategory: 'Vegetables',
     packageSize: '1 kg',
     unitPrice: 22,
     unit: 'per kg',
@@ -385,8 +392,293 @@ const products = {
       { platform: 'Instamart', price: 21, available: true, deliveryTime: '18 mins' }
     ]
   },
-  
-  // Grains & Staples
+
+  // Fashion - Electronics
+  'iphone_15_128gb': {
+    id: 'iphone_15_128gb',
+    name: 'iPhone 15',
+    brand: 'Apple',
+    category: 'Electronics',
+    subcategory: 'Mobile Phones',
+    packageSize: '128GB',
+    unitPrice: 79999,
+    unit: 'per device',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 79999, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Flipkart', price: 78999, available: true, deliveryTime: '3-4 days' },
+      { platform: 'Reliance Digital', price: 77999, available: true, deliveryTime: 'Same day' }
+    ]
+  },
+  'samsung_galaxy_s24': {
+    id: 'samsung_galaxy_s24',
+    name: 'Samsung Galaxy S24',
+    brand: 'Samsung',
+    category: 'Electronics',
+    subcategory: 'Mobile Phones',
+    packageSize: '256GB',
+    unitPrice: 64999,
+    unit: 'per device',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 64999, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Flipkart', price: 63999, available: true, deliveryTime: '3-4 days' },
+      { platform: 'Croma', price: 65999, available: true, deliveryTime: 'Same day' }
+    ]
+  },
+  'laptop_hp_pavilion': {
+    id: 'laptop_hp_pavilion',
+    name: 'HP Pavilion 15',
+    brand: 'HP',
+    category: 'Electronics',
+    subcategory: 'Laptops',
+    packageSize: '15.6" FHD',
+    unitPrice: 54999,
+    unit: 'per device',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 54999, available: true, deliveryTime: '3-5 days' },
+      { platform: 'Flipkart', price: 52999, available: true, deliveryTime: '4-6 days' },
+      { platform: 'Reliance Digital', price: 55999, available: true, deliveryTime: '2-3 days' }
+    ]
+  },
+
+  // Fashion - Clothing
+  'tshirt_nike_black': {
+    id: 'tshirt_nike_black',
+    name: 'Nike T-Shirt',
+    brand: 'Nike',
+    category: 'Fashion',
+    subcategory: 'Men\'s Clothing',
+    packageSize: 'M',
+    unitPrice: 1299,
+    unit: 'per piece',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Myntra', price: 1299, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Amazon', price: 1199, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Flipkart', price: 999, available: true, deliveryTime: '3-4 days' }
+    ]
+  },
+  'jeans_levi_501': {
+    id: 'jeans_levi_501',
+    name: 'Levi\'s 501 Jeans',
+    brand: 'Levi\'s',
+    category: 'Fashion',
+    subcategory: 'Men\'s Clothing',
+    packageSize: '32W',
+    unitPrice: 3499,
+    unit: 'per piece',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Myntra', price: 3499, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Amazon', price: 3299, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Ajio', price: 2999, available: true, deliveryTime: '3-5 days' }
+    ]
+  },
+  'dress_zara_summer': {
+    id: 'dress_zara_summer',
+    name: 'Zara Summer Dress',
+    brand: 'Zara',
+    category: 'Fashion',
+    subcategory: 'Women\'s Clothing',
+    packageSize: 'M',
+    unitPrice: 2499,
+    unit: 'per piece',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Zara', price: 2499, available: true, deliveryTime: '3-5 days' },
+      { platform: 'Myntra', price: 2399, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Amazon', price: 2299, available: true, deliveryTime: '2-3 days' }
+    ]
+  },
+
+  // Home & Kitchen
+  'air_fryer_philips': {
+    id: 'air_fryer_philips',
+    name: 'Philips Air Fryer',
+    brand: 'Philips',
+    category: 'Home & Kitchen',
+    subcategory: 'Kitchen Appliances',
+    packageSize: '4.5L',
+    unitPrice: 8999,
+    unit: 'per device',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 8999, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Flipkart', price: 8499, available: true, deliveryTime: '3-4 days' },
+      { platform: 'Croma', price: 9299, available: true, deliveryTime: 'Same day' }
+    ]
+  },
+  'washing_machine_lg': {
+    id: 'washing_machine_lg',
+    name: 'LG Washing Machine',
+    brand: 'LG',
+    category: 'Home & Kitchen',
+    subcategory: 'Home Appliances',
+    packageSize: '7kg Front Load',
+    unitPrice: 24999,
+    unit: 'per device',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 24999, available: true, deliveryTime: '3-5 days' },
+      { platform: 'Flipkart', price: 23999, available: true, deliveryTime: '4-6 days' },
+      { platform: 'Reliance Digital', price: 25999, available: true, deliveryTime: '2-3 days' }
+    ]
+  },
+  'sofa_urban_ladder': {
+    id: 'sofa_urban_ladder',
+    name: 'Urban Ladder 3 Seater Sofa',
+    brand: 'Urban Ladder',
+    category: 'Home & Kitchen',
+    subcategory: 'Furniture',
+    packageSize: '3 Seater',
+    unitPrice: 18999,
+    unit: 'per piece',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 18999, available: true, deliveryTime: '5-7 days' },
+      { platform: 'Pepperfry', price: 17999, available: true, deliveryTime: '7-10 days' },
+      { platform: 'Urban Ladder', price: 19999, available: true, deliveryTime: '3-5 days' }
+    ]
+  },
+
+  // Beauty & Personal Care
+  'lipstick_maybelline': {
+    id: 'lipstick_maybelline',
+    name: 'Maybelline Lipstick',
+    brand: 'Maybelline',
+    category: 'Beauty & Personal Care',
+    subcategory: 'Makeup',
+    packageSize: '4.2g',
+    unitPrice: 499,
+    unit: 'per piece',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Nykaa', price: 499, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Amazon', price: 449, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Flipkart', price: 399, available: true, deliveryTime: '3-4 days' }
+    ]
+  },
+  'face_wash_himalaya': {
+    id: 'face_wash_himalaya',
+    name: 'Himalaya Face Wash',
+    brand: 'Himalaya',
+    category: 'Beauty & Personal Care',
+    subcategory: 'Skincare',
+    packageSize: '100ml',
+    unitPrice: 199,
+    unit: 'per piece',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 199, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Nykaa', price: 189, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Flipkart', price: 179, available: true, deliveryTime: '3-4 days' }
+    ]
+  },
+
+  // Sports & Fitness
+  'yoga_mat_decathlon': {
+    id: 'yoga_mat_decathlon',
+    name: 'Decathlon Yoga Mat',
+    brand: 'Decathlon',
+    category: 'Sports & Fitness',
+    subcategory: 'Fitness Equipment',
+    packageSize: '6mm',
+    unitPrice: 799,
+    unit: 'per piece',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Decathlon', price: 799, available: true, deliveryTime: '3-5 days' },
+      { platform: 'Amazon', price: 699, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Flipkart', price: 749, available: true, deliveryTime: '3-4 days' }
+    ]
+  },
+  'dumbbell_amazon': {
+    id: 'dumbbell_amazon',
+    name: 'Amazon Basics Dumbbells',
+    brand: 'Amazon Basics',
+    category: 'Sports & Fitness',
+    subcategory: 'Fitness Equipment',
+    packageSize: '10kg Pair',
+    unitPrice: 1299,
+    unit: 'per pair',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 1299, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Flipkart', price: 1199, available: true, deliveryTime: '3-4 days' },
+      { platform: 'Decathlon', price: 1399, available: true, deliveryTime: '3-5 days' }
+    ]
+  },
+
+  // Books & Stationery
+  'book_psychology': {
+    id: 'book_psychology',
+    name: 'Thinking, Fast and Slow',
+    brand: 'Penguin Books',
+    category: 'Books & Stationery',
+    subcategory: 'Books',
+    packageSize: 'Paperback',
+    unitPrice: 499,
+    unit: 'per piece',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 499, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Flipkart', price: 449, available: true, deliveryTime: '3-4 days' },
+      { platform: 'Crossword', price: 399, available: true, deliveryTime: '4-6 days' }
+    ]
+  },
+  'notebook_classmate': {
+    id: 'notebook_classmate',
+    name: 'Classmate Notebook',
+    brand: 'Classmate',
+    category: 'Books & Stationery',
+    subcategory: 'Stationery',
+    packageSize: '200 Pages',
+    unitPrice: 120,
+    unit: 'per piece',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 120, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Flipkart', price: 100, available: true, deliveryTime: '3-4 days' },
+      { platform: 'Archies', price: 110, available: true, deliveryTime: '4-6 days' }
+    ]
+  },
+
+  // Toys & Games
+  'lego_set_star_wars': {
+    id: 'lego_set_star_wars',
+    name: 'LEGO Star Wars Set',
+    brand: 'LEGO',
+    category: 'Toys & Games',
+    subcategory: 'Toys',
+    packageSize: '750+ pieces',
+    unitPrice: 12999,
+    unit: 'per set',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 12999, available: true, deliveryTime: '3-5 days' },
+      { platform: 'Flipkart', price: 11999, available: true, deliveryTime: '4-6 days' },
+      { platform: 'Hamleys', price: 13999, available: true, deliveryTime: '3-5 days' }
+    ]
+  },
+  'board_game_chess': {
+    id: 'board_game_chess',
+    name: 'Chess Board Game',
+    brand: 'Funskool',
+    category: 'Toys & Games',
+    subcategory: 'Board Games',
+    packageSize: 'Wooden',
+    unitPrice: 599,
+    unit: 'per piece',
+    nutritionalInfo: null,
+    platforms: [
+      { platform: 'Amazon', price: 599, available: true, deliveryTime: '2-3 days' },
+      { platform: 'Flipkart', price: 549, available: true, deliveryTime: '3-4 days' },
+      { platform: 'Hamleys', price: 649, available: true, deliveryTime: '3-5 days' }
+    ]
+  }
+};
   'rice_basmati_1kg': {
     id: 'rice_basmati_1kg',
     name: 'Basmati Rice',
@@ -561,19 +853,52 @@ const getAllCategories = () => {
   return categories;
 };
 
+const getAllSubcategories = () => {
+  const subcategories = [...new Set(Object.values(products).map(product => product.subcategory).filter(Boolean))];
+  return subcategories;
+};
+
+const getCategoriesWithSubcategories = () => {
+  const categoryMap = {};
+  Object.values(products).forEach(product => {
+    if (!categoryMap[product.category]) {
+      categoryMap[product.category] = new Set();
+    }
+    if (product.subcategory) {
+      categoryMap[product.category].add(product.subcategory);
+    }
+  });
+  
+  return Object.keys(categoryMap).map(category => ({
+    category,
+    subcategories: Array.from(categoryMap[category])
+  }));
+};
+
 const getAllBrands = () => {
   const brands = [...new Set(Object.values(products).map(product => product.brand))];
   return brands;
 };
 
-const searchProducts = (query = '', category = '', brand = '') => {
+const getAllPlatforms = () => {
+  const platforms = new Set();
+  Object.values(products).forEach(product => {
+    product.platforms?.forEach(platform => {
+      platforms.add(platform.platform);
+    });
+  });
+  return Array.from(platforms);
+};
+
+const searchProducts = (query = '', category = '', subcategory = '', brand = '', platform = '') => {
   let results = Object.values(products);
   
   if (query) {
     const searchTerm = query.toLowerCase();
     results = results.filter(product => 
       product.name.toLowerCase().includes(searchTerm) ||
-      product.brand.toLowerCase().includes(searchTerm)
+      product.brand.toLowerCase().includes(searchTerm) ||
+      (product.subcategory && product.subcategory.toLowerCase().includes(searchTerm))
     );
   }
   
@@ -581,8 +906,18 @@ const searchProducts = (query = '', category = '', brand = '') => {
     results = results.filter(product => product.category === category);
   }
   
+  if (subcategory) {
+    results = results.filter(product => product.subcategory === subcategory);
+  }
+  
   if (brand) {
-    results = results.filter(product => product.brand === brand);
+    results = results.filter(product => product.brand.toLowerCase() === brand.toLowerCase());
+  }
+  
+  if (platform) {
+    results = results.filter(product => 
+      product.platforms?.some(p => p.platform.toLowerCase() === platform.toLowerCase())
+    );
   }
   
   return results;
@@ -592,12 +927,60 @@ const getProductsByCategory = (category) => {
   return Object.values(products).filter(product => product.category === category);
 };
 
+const getProductsBySubcategory = (subcategory) => {
+  return Object.values(products).filter(product => product.subcategory === subcategory);
+};
+
+const getHotDeals = () => {
+  return Object.values(products)
+    .filter(product => product.platforms && product.platforms.length > 1)
+    .map(product => {
+      const prices = product.platforms.map(p => p.price);
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+      const savings = maxPrice - minPrice;
+      const savingsPercentage = ((savings / maxPrice) * 100).toFixed(1);
+      
+      return {
+        ...product,
+        minPrice,
+        maxPrice,
+        savings,
+        savingsPercentage: parseFloat(savingsPercentage),
+        bestPlatform: product.platforms.find(p => p.price === minPrice)
+      };
+    })
+    .sort((a, b) => b.savingsPercentage - a.savingsPercentage)
+    .slice(0, 10);
+};
+
 // API Endpoints
 
-// Get all categories
+// Get all categories with subcategories
 app.get('/categories', (req, res) => {
-  const categories = getAllCategories();
-  return res.json(categories);
+  const categoriesWithSubs = getCategoriesWithSubcategories();
+  return res.json(categoriesWithSubs);
+});
+
+// Get all subcategories
+app.get('/subcategories', (req, res) => {
+  const subcategories = getAllSubcategories();
+  return res.json(subcategories);
+});
+
+// Get all platforms
+app.get('/platforms', (req, res) => {
+  const platforms = getAllPlatforms();
+  return res.json(platforms);
+});
+
+// Get hot deals
+app.get('/hot-deals', (req, res) => {
+  const hotDeals = getHotDeals();
+  return res.json({
+    deals: hotDeals,
+    totalCount: hotDeals.length
+  });
 });
 
 // Get all brands
@@ -618,13 +1001,33 @@ app.get('/products/category/:category', (req, res) => {
   return res.json(categoryProducts);
 });
 
+// Get products by subcategory
+app.get('/products/subcategory/:subcategory', (req, res) => {
+  const { subcategory } = req.params;
+  const subcategoryProducts = getProductsBySubcategory(subcategory);
+  
+  if (subcategoryProducts.length === 0) {
+    return res.status(404).json({ error: 'No products found in this subcategory.' });
+  }
+  
+  return res.json(subcategoryProducts);
+});
+
 // Advanced search endpoint
 app.get('/products/search', (req, res) => {
-  const { q: query = '', category = '', brand = '' } = req.query;
-  const searchResults = searchProducts(query, category, brand);
+  const { 
+    q: query = '', 
+    category = '', 
+    subcategory = '',
+    brand = '', 
+    platform = '' 
+  } = req.query;
+  
+  const searchResults = searchProducts(query, category, subcategory, brand, platform);
   
   // Calculate additional metadata
   const categories = [...new Set(searchResults.map(p => p.category))];
+  const subcategories = [...new Set(searchResults.map(p => p.subcategory).filter(Boolean))];
   const brands = [...new Set(searchResults.map(p => p.brand))];
   const prices = searchResults.flatMap(p => p.platforms.map(pl => pl.price));
   const priceRange = prices.length > 0 ? {
@@ -636,8 +1039,16 @@ app.get('/products/search', (req, res) => {
     products: searchResults,
     totalCount: searchResults.length,
     categories,
+    subcategories,
     brands,
-    priceRange
+    priceRange,
+    filters: {
+      query,
+      category,
+      subcategory,
+      brand,
+      platform
+    }
   });
 });
 
